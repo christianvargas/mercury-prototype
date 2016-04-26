@@ -32,26 +32,26 @@
         <div class="col-sm-7">
           <div class="row">
             <div class="col-sm-4">
-              <h4 class="text-white-1"><span style="border-bottom:1px solid #f60; padding-bottom:8px;">Global Ranking</span></h4>
-              <span class="big-number text-white-1 thin">{{ company.rrr }}</span>
+              <h4 class="text-white1"><span style="border-bottom:1px solid #f60; padding-bottom:8px;">Global Ranking</span></h4>
+              <span class="big-number text-white1 thin">{{ company.rrr }}</span>
               &nbsp;
-              <span class=""><i class="ti-arrow-down text-green-1"></i> 21%</span>
+              <span class=""><i class="ti-arrow-down text-green1"></i> 21%</span>
               <div>Peak: {{round (math company.rrr '*' 1.15) 2}}</div>
               <div>Avg: {{round (math company.rrr '*' 0.85) 2}}</div>
             </div>
             <div class="col-sm-4">
               <h4>Investor Ranking</h4>
-              <span class="big-number text-white-1 thin">{{ company.investor }}</span>
+              <span class="big-number text-white1 thin">{{ company.investor }}</span>
               &nbsp;
-              <span class=""><i class="ti-arrow-down text-green-1"></i> 16%</span>
+              <span class=""><i class="ti-arrow-down text-green1"></i> 16%</span>
               <div>Peak: {{round (math company.investor '*' 1.15) 2}}</div>
               <div>Avg: {{round (math company.investor '*' 0.85) 2}}</div>
             </div>
             <div class="col-sm-4">
               <h4>Corporate Ranking</h4>
-              <span class="big-number text-white-1 thin">{{ company.corporate }}</span>
+              <span class="big-number text-white1 thin">{{ company.corporate }}</span>
               &nbsp;
-              <span class=""><i class="ti-arrow-up text-red-1"></i> 9%</span>
+              <span class=""><i class="ti-arrow-up text-red1"></i> 9%</span>
               <div>Peak: {{round (math company.corporate '*' 1.15) 2}}</div>
               <div>Avg: {{round (math company.corporate '*' 0.85) 2}}</div>
             </div>
