@@ -1,0 +1,41 @@
+<div class="main-color topbar-secondary">
+  <div class="container padding-top-double padding-bottom-double">
+    <h2 class="pull-left">Watchlists</h2>
+    <div class="pull-right">
+      <a class="btn btn-sm btn-white btn-round">Create New</a>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="container has-secondary-topbar padding-top-double padding-bottom-double">
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="30%">Name</th>
+            <th class="text-center" width="10%">Companies</th>
+            <th class="text-center" width="10%">Current RRR</th>
+            <th class="text-center" width="10%">Peak RRR</th>
+            <th class="text-center" width="10%">Average RRR</th>
+            <th class="text-right" width="15%">Date Created</th>
+            <th class="text-right" width="15%">Last Updated</th>
+        </thead>
+        <tbody>
+          {{#each data.watchlist}}
+          <tr>
+            <td><a href="/#/watchlist/1">{{ n }}</a></td>
+            <td class="text-center">{{ co }}</td>
+            <td class="text-center">{{ rrr }}</td>
+            <td class="text-center">{{ peak }}</td>
+            <td class="text-center">{{ avg }}</td>
+            <td class="text-right">{{ c }}</td>
+            <td class="text-right">{{ u }}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

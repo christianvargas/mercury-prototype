@@ -1,0 +1,194 @@
+/* COLORS */
+@maincolor: #3C444E;
+@maintextcolor: #9ea1a7;
+@menucolor: #000;
+@hovercolor: #fbae17;
+@topbar_color: @maincolor;
+@brand_color: #3C444E;
+@contentbg: #FFF;
+@first_level_hover: #1E2227;
+@second_level: darken(@maincolor,5%);
+
+@transparent: rgba(0,0,0,0);
+@black: #000000;
+@white-1: #ffffff;
+@red-1: #F54C4C;
+@blue-1: #3C989E;
+@blue-2: #3498DB;
+@blue-3: #2980B9;
+@darkblue-1: #252932;
+@darkblue-2: #4A525F;
+@darkblue-3: #38464A;
+@lightblue-1: #ABB7B7;
+@lightblue-2: #7A868F;
+@orange-1: #FDB03F;
+@orange-2: #FFF8EF;
+@orange-3: #E27A3F;
+@orange-4: #edce8c;
+@green-1: #50C150;
+@green-2: #9EC789;
+@green-3: #209C83;
+@pink-1: #F57A82;
+@pink-2: #F56F6C;
+@yellow-1: #F4CDA5;
+@yellow-2: #EAE696;
+@primary: #33ACE0;
+@gray: @maintextcolor;
+@gray-background: #E6E6E6;
+
+@E: #7CC94C;
+@S: #FD9231;
+@G: #33ACE0;
+@environmental: @E;
+@social: @S;
+@governance: @G;
+
+@lightgray: #DDD;
+@darkgray: @maintextcolor;
+@mediumgray: #AAA;
+@preparedness: #D89B34;
+
+/* CHART COLORS */
+@sectorBaseline: #3A5E60;
+@countryBaseline: #4DDAAC;
+@fill: #F5F5F5;
+@chartColor-0: #75e246;
+@chartColor-1: #dff44c;
+@chartColor-2: #feef4f;
+@chartColor-3: #fecc4f;
+@chartColor-4: #fea94f;
+@chartColor-5: #fe774f;
+@chartColor-6: #ef4a62;
+@chartColor-7: #dc44c8;
+@chartColor-8: #8944db;
+@chartColor-9: #444fdb;
+@chartColor-10: #4498db;
+@chartColor-11: #44dbab;
+@adjustedBaseline: #FF931E;
+@reputational: #F15A24;
+@management: #FF6600;
+
+@lowRisk: #75E246;
+@mediumRisk: #FECC4F;
+@highRisk: #FE774F;
+/* COLORS END */
+
+
+.set-text-color (@color) when (lightness(@color) >= 70) {
+  	color: #333;
+}
+.set-text-color (@color) when (lightness(@color) < 70) {
+  	color: #fff;
+}
+
+
+.setColor(@color) {
+    .bg-@{color} {
+    	background-color: ~"@{@{color}}" !important;
+    }
+    .border-@{color} {
+    	border-color: ~"@{@{color}}" !important;
+    }
+    .btn-@{color} {
+    	background-color: ~"@{@{color}}";
+    	color:#fff;
+    }
+    .btn-@{color}:hover {
+    	background-color: desaturate(darken(@@color,5%),10%) !important;
+    	color:#fff;
+    }
+    .btn-@{color}-stroke {
+    	color: ~"@{@{color}}" !important;
+    	background-color: transparent;
+      border-color: ~"@{@{color}}";
+    }
+    .btn-@{color}-stroke:hover {
+      color: ~"@{@{color}}" !important;
+    	background-color: transparent;
+    }
+    .text-@{color} {
+    	color: ~"@{@{color}}" !important;
+    }
+    .panel-@{color}{
+    	border-color: desaturate(darken(@@color,5%),10%) !important;
+    }
+    .panel-@{color} .panel-heading{
+    	background-color: ~"@{@{color}}" !important;
+    	border-color: desaturate(darken(@@color,5%),10%) !important;
+    	border-radius: 0px;
+    }
+    .panel-@{color} .panel-heading a,.panel-@{color} .panel-title{
+    	.set-text-color(@@color);
+    }
+    .widget.@{color} {
+    	background-color: ~"@{@{color}}";
+    	.set-text-color(@@color);
+    	.widget-header h2{
+    		.set-text-color(@@color);
+    	}
+    }
+    .progress-bar-@{color}{
+      background-color: ~"@{@{color}}" !important;
+    }
+    .form-@{color} {
+      border: 1px solid ~"@{@{color}}";
+    }
+}
+
+
+/* SET COLORS */
+.setColor(transparent);
+.setColor(black);
+.setColor(white-1);
+.setColor(red-1);
+.setColor(blue-1);
+.setColor(blue-2);
+.setColor(blue-3);
+.setColor(darkblue-1);
+.setColor(darkblue-2);
+.setColor(darkblue-3);
+.setColor(lightblue-1);
+.setColor(lightblue-2);
+.setColor(orange-1);
+.setColor(orange-2);
+.setColor(orange-3);
+.setColor(orange-4);
+.setColor(green-1);
+.setColor(green-2);
+.setColor(green-3);
+.setColor(pink-1);
+.setColor(pink-2);
+.setColor(yellow-1);
+.setColor(yellow-2);
+.setColor(primary);
+.setColor(gray);
+.setColor(sectorBaseline);
+.setColor(countryBaseline);
+.setColor(chartColor-0);
+.setColor(chartColor-1);
+.setColor(chartColor-2);
+.setColor(chartColor-3);
+.setColor(chartColor-4);
+.setColor(chartColor-5);
+.setColor(chartColor-6);
+.setColor(chartColor-7);
+.setColor(chartColor-8);
+.setColor(chartColor-9);
+.setColor(chartColor-10);
+.setColor(chartColor-11);
+.setColor(darkgray);
+.setColor(lightgray);
+.setColor(mediumgray);
+.setColor(environmental);
+.setColor(social);
+.setColor(governance);
+.setColor(E);
+.setColor(S);
+.setColor(G);
+.setColor(preparedness);
+.setColor(adjustedBaseline);
+.setColor(reputational);
+.setColor(management);
+.setColor(lowRisk);
+.setColor(mediumRisk);
+.setColor(highRisk);

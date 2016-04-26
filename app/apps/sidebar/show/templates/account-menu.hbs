@@ -1,0 +1,49 @@
+<!-- Left Sidebar Start -->
+<div class="left side-menu">
+  <div class="sidebar-inner slimscrollleft">
+
+    <div class="text-center">
+      <a href="#" class="link-home text-white-1 first">
+        SUSTAINALYTICS
+        <span class="text-management">MERCURY</span>
+      </a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="sidebar-menu" style="margin-top: 100px;">
+      <h4 class="text-lightgray text-center">My Library</h4>
+      <ul>
+        <li>
+          <a href="#">
+            <i class="ti-eye"></i>
+            <div>Watchlist</div>
+          </a>
+          <ul style="display: block;">
+          {{#each watchlist}}
+            <li><a href="#"><span>{{ n }}</span></a></li>
+          {{/each}}
+          </ul>
+        </li>
+        <li>
+          <a href="#">
+            <hr style="border-top-color:#7A7E83; margin:5px;" />
+          </a>
+        </li>
+        <li class="has_sub">
+          <a href="#">
+            <i class="ti-list"></i>
+            <div>Saved Companies</div>
+          </a>
+          <ul style="display: block;" id="savedCompanies">
+          {{#each saved}}
+            <li><a href="#"><span>{{ this }}</span></a></li>
+          {{/each}}
+          </ul>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<!-- Left Sidebar End -->
