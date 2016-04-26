@@ -15,12 +15,13 @@
         <thead>
           <tr>
             <th width="30%">Name</th>
-            <th class="text-center" width="10%">Companies</th>
-            <th class="text-center" width="10%">Current RRR</th>
-            <th class="text-center" width="10%">Peak RRR</th>
-            <th class="text-center" width="10%">Average RRR</th>
-            <th class="text-right" width="15%">Date Created</th>
-            <th class="text-right" width="15%">Last Updated</th>
+            <th class="text-center" width="8%">Companies</th>
+            <th class="text-center" width="8%">Current RRR</th>
+            <th class="text-center" width="8%">Peak RRR</th>
+            <th class="text-center" width="8%">Average RRR</th>
+            <th class="text-center" width="15%">Date Created</th>
+            <th class="text-center" width="15%">Last Updated</th>
+            <th class="text-center" width="8%">&nbsp;</th>
         </thead>
         <tbody>
           {{#each data.watchlist}}
@@ -30,8 +31,9 @@
             <td class="text-center">{{ rrr }}</td>
             <td class="text-center">{{ peak }}</td>
             <td class="text-center">{{ avg }}</td>
-            <td class="text-right">{{ c }}</td>
-            <td class="text-right">{{ u }}</td>
+            <td class="text-center">{{ c }}</td>
+            <td class="text-center">{{ u }}</td>
+            <td class="text-center"><a href="#" class="btn btn-sm btn-round btn-darkgray-stroke">Delete</a></td>
           </tr>
           {{/each}}
         </tbody>

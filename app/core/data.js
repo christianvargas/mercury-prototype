@@ -53,14 +53,48 @@ module.exports = {
     corporate: 56.1
   },
 
-  saved: [
-    "Lyft",
-    "Curb",
-    "Taxi Magic",
-    "Didi Kuaidi",
-    "Grab",
-    "Ola"
-  ],
+  saved: [{
+    n: "Lyft",
+    s: "Technology",
+    rrr: 74,
+    peak: 81,
+    avg: 62,
+  },
+  {
+    n: "Curb",
+    s: "Transportation",
+    rrr: 53,
+    peak: 77,
+    avg: 59,
+  },
+  {
+    n: "Taxi Magic",
+    s: "Transportation",
+    rrr: 24,
+    peak: 51,
+    avg: 32,
+  },
+  {
+    n: "Didi Kuaidi",
+    s: "Technology",
+    rrr: 60,
+    peak: 71,
+    avg: 62,
+  },
+  {
+    n: "Grab",
+    s: "Transportation",
+    rrr: 59,
+    peak: 66,
+    avg: 51,
+  },
+  {
+    n: "Ola",
+    s: "Transportation",
+    rrr: 94,
+    peak: 94,
+    avg: 62,
+  }],
 
   watchlist: [{
     n: "Key Competitors",
@@ -106,4 +140,29 @@ module.exports = {
     rrr: 62.3,
   }],
 
+  issues: [{
+    n: "Bribery & Corruption",
+    c: 18,
+    f: "01/03/2015",
+    l: "04/22/2016",
+    w: 7,
+  },{
+    n: "Child Labour",
+    c: 11,
+    f: "03/19/2016",
+    l: "03/28/2016",
+    w: 4,
+  },{
+    n: "Worker Conditions",
+    c: 51,
+    f: "02/04/2013",
+    l: "11/12/2015",
+    w: 5,
+  },{
+    n: "Safety",
+    c: 3,
+    f: "03/31/2016",
+    l: "04/26/2016",
+    w: 2,
+  }]
 };

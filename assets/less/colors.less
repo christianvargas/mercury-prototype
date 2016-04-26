@@ -83,6 +83,16 @@
       color: ~"@{@{color}}" !important;
     	background-color: transparent;
     }
+    .btn-@{color}-transparent {
+      color: ~"@{@{color}}" !important;
+    	background-color: transparent;
+
+      &.active, &.active:hover {
+        border: 1px solid ~"@{@{color}}" !important;
+      }
+    }
+
+
     .text-@{color} {
     	color: ~"@{@{color}}" !important;
     }
