@@ -131,11 +131,11 @@
             <tr style="display:none;" data-detail-id="{{ @index }}">
               <td colspan="6" style="background-color: #EEE;">
                 <div>
-
                   <table class="table" style="margin-bottom:0px;">
                     <thead>
                       <tr>
-                        <th width="60%">Article</th>
+                        <th width="50%">Article</th>
+                        <th width="10%">Main Tag</th>
                         <th width="10%" class="text-center">Rank</th>
                         <th width="10%" class="text-center">Sentiment Level</th>
                         <th width="10%" class="text-center">Publish Date</th>
@@ -149,6 +149,7 @@
                           {{ h }}
                           <div class="small text-darkgray">{{ s }}</div>
                         </td>
+                        <td>{{ t }}</td>
                         <td class="text-center">{{round (math i '/' 10) 1}}</td>
                         <td class="text-center">{{round (math r '/' 10) 1}}</td>
                         <td class="text-center">{{ c }}</td>

@@ -1,6 +1,7 @@
 module.exports = {
   myNews: [{
     co: 'Apple Inc.',
+    sector: 'Technology',
     h: 'ClimateCare Reports Impressive Figures',
     s: 'CSR Wire',
     c: 'Apr 09, 2016',
@@ -8,6 +9,8 @@ module.exports = {
     i: 13,
     r: 41,
     b: 'Climate and sustainable development expert ClimateCare today announced new impact figures that show it has improved life for 16.5 million people and at the same time...',
+    t: 'Business Ethics',
+    iss: 'Bribery & Corruption<br />Worker Conditions<br />Safety',
   },{
     co: 'Yelp',
     h: 'U.S. Chamber Foundation Seeks Nominations to Recognize Top Corporate Citizens',
@@ -17,6 +20,8 @@ module.exports = {
     i: 8,
     r: 15,
     b: 'Climate and sustainable development expert ClimateCare today announced new impact figures that show it has improved life for 16.5 million people and at the same time...',
+    t: 'Corruption',
+    iss: 'Worker Conditions<br />Safety',
   },{
     co: 'United Airlines',
     h: 'Russian Military Registers Seven Ceasefire Violations in Syria',
@@ -26,6 +31,8 @@ module.exports = {
     c: 'Apr 02, 2016',
     d: 'Apr 03, 2016',
     b: '',
+    t: 'Bribery',
+    iss: 'Bribery & Corruption<br />Safety',
   },{
     co: 'Apple Inc.',
     h: 'Gulf markets stabilise, Egypt rebounds',
@@ -35,6 +42,8 @@ module.exports = {
     c: 'Apr 02, 2016',
     d: 'Apr 03, 2016',
     b: '',
+    t: 'Business Ethics',
+    iss: 'Safety',
   }],
 
   company: {

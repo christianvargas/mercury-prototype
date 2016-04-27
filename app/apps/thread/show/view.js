@@ -8,30 +8,84 @@ var View = Marionette.ItemView.extend({
 
   templateHelpers: function(){
     return {
-      data: this.options.data
+      data: this.options.data,
+      thread: this.options.data.myNews[0],
     }
   },
 
-  onShow: function(){
-    this.loadMyTrend();
-    this.loadMyEsg();
-    this.loadCompetitors();
-    // this.loadCompDaily();
-  },
-
   events: {
-    "click a.show-rrr-chart": "loadCompetitors",
-    "click a.show-threads": "loadThreads",
-    "click a.show-daily": "loadCompDaily",
+    'click a.show-articles': 'showArticles',
+    'click a.show-issues': 'showIssues',
+    'click a.show-details': 'showDetails',
+    'click a.show-stories': 'showStories',
+    "click a.show-detail": "showDetail",
   },
 
-  loadThreads: function(){
-    $('#rrrChart').css('display', 'none');
-    $('#rrrDaily').css('display', 'none');
-    $('#rrrThreads').css('display', 'block');
+  onShow: function(){
+    this.showArticles();
+    $('#company-details').css('margin-top', $('#header-container').innerHeight() + parseFloat($('.navbar:first').outerHeight()));
   },
 
-  loadMyTrend: function(){
+  showDetail: function(e){
+    e.preventDefault();
+    $('tr[data-detail-id="' + $(e.target).closest('a').data('id') + '"]').toggle();
+  },
+
+  showArticles: function(e){
+    if( e !== undefined ){
+      e.preventDefault();
+    }
+
+    this.hideAll();
+    $('.show-articles').addClass('active');
+    $('#articles').css('display', 'block');
+  },
+
+  showIssues: function(e){
+    if( e !== undefined ){
+      e.preventDefault();
+    }
+
+    this.options.data.issues.forEach(function(issue){
+      for( var x=0; x<issue.c; x++ ){
+        console.log(issue.n, x);
+      }
+    });
+
+    this.hideAll();
+    $('.show-issues').addClass('active');
+    $('#issues').css('display', 'block');
+  },
+
+  showDetails: function(e){
+    if( e !== undefined ){
+      e.preventDefault();
+    }
+
+    this.hideAll();
+    $('.show-details').addClass('active');
+    $('#details').css('display', 'block');
+
+    this.showTrend();
+    this.showHeatmap();
+  },
+
+  showStories: function(e){
+    if( e !== undefined ){
+      e.preventDefault();
+    }
+
+    this.hideAll();
+    $('.show-stories').addClass('active');
+    $('#stories').css('display', 'block');
+  },
+
+  hideAll: function(){
+    $('.nav-links').removeClass('active');
+    $('#articles').add('#issues').add('#details').add('#stories').css('display', 'none');
+  },
+
+  showTrend: function(){
 
     var data = [{
         "date": "2015-07-27",
@@ -702,436 +756,75 @@ var View = Marionette.ItemView.extend({
     }
   },
 
-  loadMyEsg: function(){
-    var chart = AmCharts.makeChart("esg", {
-    	"type": "serial",
-      "theme": "light",
-    	"categoryField": "type",
-    	"rotate": true,
-    	"startDuration": 1,
-    	"categoryAxis": {
-    		"gridPosition": "start",
-    		"position": "left"
-    	},
-    	"trendLines": [],
-    	"graphs": [
-    		{
-    			"balloonText": "My Ranking: [[value]]",
-    			"fillAlphas": 0.8,
-    			"id": "AmGraph-1",
-    			"lineAlpha": 0.2,
-    			"title": "Ranking",
-    			"type": "column",
-    			"valueField": "ranking",
-    		},
-    		{
-    			"balloonText": "Industry Avg: [[value]]",
-    			"fillAlphas": 0.8,
-    			"id": "AmGraph-2",
-    			"lineAlpha": 0.2,
-    			"title": "Industry Avg",
-    			"type": "column",
-    			"valueField": "avg"
-    		}
-    	],
-    	"guides": [],
-    	"valueAxes": [
-    		{
-    			"id": "ValueAxis-1",
-    			"position": "top",
-    			"axisAlpha": 0
-    		}
-    	],
-    	"allLabels": [],
-    	"balloon": {},
-    	"titles": [],
-    	"dataProvider": [
-    		{
-    			"type": "Environmental",
-    			"ranking": 23.5,
-    			"avg": 18.1,
-          "color": "#67b7dc"
-    		},
-    		{
-    			"type": "Social",
-    			"ranking": 26.2,
-    			"avg": 22.8,
-          "color": "#FF0000"
-    		},
-    		{
-    			"type": "Governance",
-    			"ranking": 29.5,
-    			"avg": 25.1
-    		}
-    	],
-        "export": {
-        	"enabled": true
-         }
+  showHeatmap: function(){
+    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
 
+        // Add lower case codes to the data set for inclusion in the tooltip.pointFormat
+        $.each(data, function () {
+            this.flag = this.code.replace('UK', 'GB').toLowerCase();
+        });
+
+        // Initiate the chart
+        $('#heatmap').highcharts('Map', {
+
+            title: {
+                text: null
+            },
+
+            legend: {
+                title: {
+                    text: 'Story Volume',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                    }
+                }
+            },
+
+            exporting: {
+              enabled: false
+            },
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+
+            tooltip: {
+                backgroundColor: 'none',
+                borderWidth: 0,
+                shadow: false,
+                useHTML: true,
+                padding: 0,
+                pointFormat: '<span class="f32"><span class="flag {point.flag}"></span></span>' +
+                    ' {point.name}: <b>{point.value}</b>',
+                positioner: function () {
+                    return { x: 0, y: 250 };
+                }
+            },
+
+            colorAxis: {
+                min: 1,
+                max: 100,
+                type: 'logarithmic'
+            },
+
+            series : [{
+                data : data,
+                mapData: Highcharts.maps['custom/world'],
+                joinBy: ['iso-a2', 'code'],
+                name: 'Stories',
+                states: {
+                    hover: {
+                        color: '#BADA55'
+                    }
+                }
+            }]
+        });
     });
-  },
-
-  loadCompetitors: function(){
-    var chart = AmCharts.makeChart( "competitors", {
-      "type": "serial",
-      "theme": "light",
-      "dataProvider": [ {
-        "country": "Curb",
-        "visits": 43
-      }, {
-        "country": "Didi Kuaidi",
-        "visits": 81
-      }, {
-        "country": "Grab",
-        "visits": 75
-      }, {
-        "country": "Lyft",
-        "visits": 66
-      }, {
-        "country": "Ola",
-        "visits": 47
-      }, {
-        "country": "Taxi Magic",
-        "visits": 58
-      } ],
-      "valueAxes": [ {
-        "gridColor": "#EEEEEE",
-        "gridAlpha": 0.2,
-        "dashLength": 0,
-        "labelsEnabled": true
-      } ],
-      "gridAboveGraphs": true,
-      "startDuration": 1,
-      "graphs": [ {
-        "balloonText": "[[category]]: <b>[[value]]</b>",
-        "fillAlphas": 0.8,
-        "lineAlpha": 0.2,
-        "type": "column",
-        "valueField": "visits"
-      } ],
-      "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-      },
-      "categoryField": "country",
-      "categoryAxis": {
-        "gridPosition": "start",
-        "gridAlpha": 0,
-        "tickPosition": "start",
-        "tickLength": 20
-      },
-      "export": {
-        "enabled": true
-      },
-      "data_labels_always_on": true
-    } );
-
-    $('#rrrChart').css('display', 'block');
-    $('#rrrThreads').css('display', 'none');
-    $('#rrrDaily').css('display', 'none');
-  },
-
-  loadCompDaily: function(){
-
-    var start = [46, 11, 55, 62, 37, 48];
-    var data = [];
-    for( var x=15; x<=30; x++ ){
-      data.push({
-        "date": "2016-03-"+x,
-        "market1": start[0]*(Math.floor(Math.random() * 31) + 85) / 100,
-        "market2": start[1]*(Math.floor(Math.random() * 31) + 85) / 100,
-        "market3": start[2]*(Math.floor(Math.random() * 31) + 85) / 100,
-        "market4": start[3]*(Math.floor(Math.random() * 31) + 85) / 100,
-        "market5": start[4]*(Math.floor(Math.random() * 31) + 85) / 100,
-        "market6": start[5]*(Math.floor(Math.random() * 31) + 85) / 100,
-      });
-    }
-
-
-
-
-/*    var chart = AmCharts.makeChart( "chartdiv", {
-      "type": "serial",
-      "addClassNames": true,
-      "theme": "light",
-      "autoMargins": false,
-      "marginLeft": 30,
-      "marginRight": 8,
-      "marginTop": 10,
-      "marginBottom": 26,
-      "balloon": {
-        "adjustBorderColor": false,
-        "horizontalPadding": 10,
-        "verticalPadding": 8,
-        "color": "#ffffff"
-      },
-
-      "dataProvider": [ {
-        "year": 2009,
-        "income": 23.5,
-        "expenses": 21.1
-      }, {
-        "year": 2010,
-        "income": 26.2,
-        "expenses": 30.5
-      }, {
-        "year": 2011,
-        "income": 30.1,
-        "expenses": 34.9
-      }, {
-        "year": 2012,
-        "income": 29.5,
-        "expenses": 31.1
-      }, {
-        "year": 2013,
-        "income": 30.6,
-        "expenses": 28.2,
-        "dashLengthLine": 5
-      }, {
-        "year": 2014,
-        "income": 34.1,
-        "expenses": 32.9,
-        "dashLengthColumn": 5,
-        "alpha": 0.2,
-        "additional": "(projection)"
-      } ],
-      "valueAxes": [ {
-        "axisAlpha": 0,
-        "position": "left"
-      } ],
-      "startDuration": 1,
-      "graphs": [ {
-        "alphaField": "alpha",
-        "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
-        "fillAlphas": 1,
-        "title": "Income",
-        "type": "column",
-        "valueField": "income",
-        "dashLengthField": "dashLengthColumn"
-      }, {
-        "id": "graph2",
-        "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
-        "bullet": "round",
-        "lineThickness": 3,
-        "bulletSize": 7,
-        "bulletBorderAlpha": 1,
-        "bulletColor": "#FFFFFF",
-        "useLineColorForBulletBorder": true,
-        "bulletBorderThickness": 3,
-        "fillAlphas": 0,
-        "lineAlpha": 1,
-        "title": "Expenses",
-        "valueField": "expenses",
-        "dashLengthField": "dashLengthLine"
-      } ],
-      "categoryField": "year",
-      "categoryAxis": {
-        "gridPosition": "start",
-        "axisAlpha": 0,
-        "tickLength": 0
-      },
-      "export": {
-        "enabled": true
-      }
-    } );
-
-    */
-
-    var chart = AmCharts.makeChart("compDaily", {
-      "type": "serial",
-      "theme": "light",
-      "dataDateFormat": "YYYY-MM-DD",
-      "precision": 2,
-      "graphs": [{
-        "id": "g1",
-        "valueAxis": "v2",
-        "type": "smoothedLine",
-        "title": "Curb",
-        "valueField": "market1",
-        "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
-      }, {
-        "id": "g2",
-        "valueAxis": "v2",
-        "type": "smoothedLine",
-        "title": "Didi Kuaidi",
-        "valueField": "market2",
-        "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
-      }, {
-        "id": "g2",
-        "valueAxis": "v2",
-        "type": "smoothedLine",
-        "title": "Grab",
-        "valueField": "market3",
-        "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
-      }, {
-        "id": "g3",
-        "valueAxis": "v2",
-        "type": "smoothedLine",
-        "title": "Lyft",
-        "valueField": "market4",
-        "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
-      }, {
-        "id": "g4",
-        "valueAxis": "v2",
-        "type": "smoothedLine",
-        "title": "Ola",
-        "valueField": "market5",
-        "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
-      }, {
-        "id": "g5",
-        "valueAxis": "v2",
-        "type": "smoothedLine",
-        "title": "Taxi Magic",
-        "valueField": "market6",
-        "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
-      }],
-      "categoryField": "date",
-      "categoryAxis": {
-        "parseDates": true,
-        "dashLength": 1,
-        "minorGridEnabled": true
-      },
-      "legend": {
-        "useGraphSettings": true,
-        "position": "bottom"
-      },
-      "balloon": {
-        "borderThickness": 1,
-        "shadowAlpha": 0
-      },
-      "export": {
-       "enabled": true
-      },
-      "dataProvider": data
-      /*[{
-        "date": "2013-01-16",
-        "market1": 71,
-        "market2": 75,
-        "market3": 35,
-        "market4": 84,
-        "market5": 23,
-        "market6": 66,
-      }, {
-        "date": "2013-01-17",
-        "market1": 74,
-        "market2": 78,
-        "market3": 41,
-        "market4": 62,
-        "market5": 73,
-        "market6": 63,
-      }, {
-        "date": "2013-01-18",
-        "market1": 78,
-        "market2": 88,
-        "market3": 55,
-        "market4": 72,
-        "market5": 38,
-        "market6": 61,
-      }, {
-        "date": "2013-01-19",
-        "market1": 85,
-        "market2": 89,
-        "market3": 48,
-        "market4": 59,
-        "market5": 83,
-        "market6": 76,
-      }, {
-        "date": "2013-01-20",
-        "market1": 82,
-        "market2": 89,
-        "market3": 39,
-        "market4": 69,
-        "market5": 53,
-        "market6": 46,
-      }, {
-        "date": "2013-01-21",
-        "market1": 83,
-        "market2": 85,
-        "market3": 3,
-        "market4": 5,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-22",
-        "market1": 88,
-        "market2": 92,
-        "market3": 5,
-        "market4": 7,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-23",
-        "market1": 85,
-        "market2": 90,
-        "market3": 7,
-        "market4": 6,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-24",
-        "market1": 85,
-        "market2": 91,
-        "market3": 9,
-        "market4": 5,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-25",
-        "market1": 80,
-        "market2": 84,
-        "market3": 5,
-        "market4": 8,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-26",
-        "market1": 87,
-        "market2": 92,
-        "market3": 4,
-        "market4": 8,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-27",
-        "market1": 84,
-        "market2": 87,
-        "market3": 3,
-        "market4": 4,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-28",
-        "market1": 83,
-        "market2": 88,
-        "market3": 5,
-        "market4": 7,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-29",
-        "market1": 84,
-        "market2": 87,
-        "market3": 5,
-        "market4": 8,
-        "market5": 3,
-        "market6": 6,
-      }, {
-        "date": "2013-01-30",
-        "market1": 81,
-        "market2": 85,
-        "market3": 4,
-        "market4": 7,
-        "market5": 3,
-        "market6": 6,
-      }]
-      */
-    });
-
-    $('#rrrChart').css('display', 'none');
-    $('#rrrThreads').css('display', 'none');
-    $('#rrrDaily').css('display', 'block');
   }
+
 });
 
 module.exports = View;

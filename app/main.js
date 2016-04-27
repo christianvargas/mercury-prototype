@@ -10,6 +10,7 @@ require('./apps/sidebar/sidebar_app');
 require('./apps/dashboard/dashboard_app');
 require('./apps/company/company_app');
 require('./apps/watchlist/watchlist_app');
+require('./apps/thread/thread_app');
 
 // load and start the application
 var App = require('./app');
