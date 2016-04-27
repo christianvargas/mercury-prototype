@@ -609,6 +609,8 @@ var View = Marionette.ItemView.extend({
 
     data = data.map(function(element){
       element.baseline = element.value * (Math.floor(Math.random() * 31) + 85) / 100;
+      element.investor = element.value * (Math.floor(Math.random() * 11) + 55) / 100;
+      element.corporate = element.value * (Math.floor(Math.random() * 61) + 15) / 100;
       return element;
     });
 
@@ -643,7 +645,7 @@ var View = Marionette.ItemView.extend({
             "bulletSize": 5,
             "hideBulletsCount": 50,
             "lineThickness": 2,
-            "title": "red line",
+            "title": "Global Ranking",
             "useLineColorForBulletBorder": true,
             "valueField": "value",
             "balloonText": "<span style='font-size:18px;'>[[value]]</span>",
@@ -651,11 +653,29 @@ var View = Marionette.ItemView.extend({
         },{
           "id": "g2",
           "lineThickness": 2,
-          "title": "red line",
+          "title": "Industry Avg",
           "useLineColorForBulletBorder": true,
           "valueField": "baseline",
           "balloonText": "<span style='font-size:18px;'>[[value]]</span>",
           "type": "smoothedLine"
+        },{
+          "id": "g3",
+          "lineThickness": 2,
+          "title": "Investor Ranking",
+          "useLineColorForBulletBorder": true,
+          "valueField": "investor",
+          "balloonText": "<span style='font-size:18px;'>[[value]]</span>",
+          "type": "smoothedLine",
+          "hidden": true,
+        },{
+          "id": "g4",
+          "lineThickness": 2,
+          "title": "Corporate Ranking",
+          "useLineColorForBulletBorder": true,
+          "valueField": "corporate",
+          "balloonText": "<span style='font-size:18px;'>[[value]]</span>",
+          "type": "smoothedLine",
+          "hidden": true,
         }],
         "chartScrollbar": {
             "graph": "g1",
@@ -696,6 +716,11 @@ var View = Marionette.ItemView.extend({
         },
         "export": {
             "enabled": true
+        },
+        "legend": {
+            "equalWidths": true,
+            "position": "top",
+            "valueAlign": "left",
         },
         "dataProvider": data
     });
