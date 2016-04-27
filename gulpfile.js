@@ -122,7 +122,8 @@ gulp.task('vendorjs', function(){
 		libsPath + 'moment-js/moment.min.js',
 		libsPath + 'typeaheadjs/typeahead.js',
 		libsPath + 'amcharts/amcharts.js',
-		libsPath + 'amcharts/serial.js'
+		libsPath + 'amcharts/serial.js',
+		libsPath + 'amcharts/pie.js',
 	])
 	.pipe(concat('vendor.js'))
 	.pipe(gulp.dest('dist/js'))
